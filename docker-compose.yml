@@ -1,0 +1,14 @@
+version: '3.0'
+services:
+  db:
+      container_name: mm_container
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: root
+        POSTGRES_DB: pdb
+      ports:
+        - "5432:5432"
+      volumes:
+        - $HOME/Desktop/PostgreSql-Snippets/infile:/infile
