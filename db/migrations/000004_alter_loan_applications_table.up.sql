@@ -1,0 +1,3 @@
+ALTER TABLE loan_applications 
+ADD COLUMN total_interest VARCHAR(255)  NULL DEFAULT NULL,
+ADD COLUMN establishment_fee VARCHAR(255)  NULL DEFAULT NULL;

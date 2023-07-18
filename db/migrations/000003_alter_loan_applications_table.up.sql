@@ -1,0 +1,2 @@
+ALTER TABLE loan_applications 
+ADD COLUMN repayment VARCHAR(255)  NULL DEFAULT NULL;

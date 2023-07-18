@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"os"
 
+	"log"
+
 	"github.com/joho/godotenv"
 	"github.com/pkg/errors"
 	"gopkg.in/go-playground/validator.v9"
 	"gopkg.in/yaml.v3"
-	"log"
 )
 
 const configPathEnvName = "SPEC_FILE"
@@ -21,6 +22,8 @@ type (
 	Config struct {
 		// DB ...
 		DB Database `yaml:"database" validate:"required"`
+		// Portal ...
+		Portal Portal `yaml:"portal" validate:"required"`
 	}
 
 	// Database config
@@ -37,6 +40,14 @@ type (
 		Pass string `yaml:"pass" validate:"required"`
 		// Conns ...
 		Conns string `yaml:"conns"`
+	}
+
+	// Portal config
+	Portal struct {
+		// BaseURL ...
+		BaseURL string `yaml:"base_url" validate:"required"`
+		// QuoteCalcURL ...
+		QuoteCalcURL string `yaml:"quotecalc_url" validate:"required"`
 	}
 )
 

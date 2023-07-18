@@ -42,8 +42,15 @@ func main() {
 	router.Use(gin.Recovery())
 	router.Use(middleware.ContextMiddleware())
 	router.Use(middleware.DatabaseMiddleware(db))
+	router.Use(middleware.ConfigMiddleware(cfg))
+	router.Use(middleware.CORSMiddleware())
 
-	router.POST("/request-loan", handlers.PostLoanRequest)
+	v1Routes := router.Group("/api/v1")
+	{
+		v1Routes.POST("/request-loan", handlers.PostLoanRequest)
+		v1Routes.GET("/loan-app/:id", handlers.GetLoanQuote)
+		v1Routes.PUT("/loan-app/:id", handlers.CalculateLoanQuote)
+	}
 
 	router.Run("localhost:8081")
 }
