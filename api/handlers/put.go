@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -49,7 +50,9 @@ func CalculateLoanQuote(ctx *gin.Context) {
 		return
 	}
 	now := time.Now()
-	if !tDob.Before(now) || now.Sub(tDob) < 18 {
+	diff, _ := time.ParseDuration(now.Sub(tDob).String())
+	if !tDob.Before(now) || diff.Hours() < 18*24*365 {
+		err = errors.New("must be 18 years old and above")
 		log.Printf("failed dob validation: %v", err)
 		resp := structs.ErrorResponse{
 			Message: err.Error(),
